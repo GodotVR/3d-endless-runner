@@ -76,7 +76,6 @@ collision_layer = 5242880
 scene = ExtResource("3_htayq")
 viewport_size = Vector2(1024, 1024)
 material = SubResource("StandardMaterial3D_kx56g")
-transparent = 1
 scene_properties_keys = PackedStringArray("ui.gd")
 
 [node name="FlatPortal" type="MeshInstance3D" parent="." unique_id=644995825]
