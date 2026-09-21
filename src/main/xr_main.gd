@@ -3,6 +3,8 @@ extends "res://src/main/main.gd"
 const Stencilizer = preload("res://addons/spatialize/stencilizer.gd")
 
 @onready var xr_origin: XROrigin3D = $XROrigin3D
+@onready var left_hand: XRController3D = %LeftHand
+@onready var right_hand: XRController3D = %RightHand
 @onready var viewport_2d_in_3d: Node3D = %Viewport2Din3D
 @onready var flat_portal: MeshInstance3D = $FlatPortal
 @onready var cube_portal: MeshInstance3D = $CubePortal
@@ -85,3 +87,8 @@ func set_xr_mode(p_index: int) -> void:
 			flat_portal.visible = false
 			cube_portal.visible = true
 			cube_depth.visible = true
+
+
+func _on_hand_tracking_changed(_tracking: bool) -> void:
+	var hand_tracking_active: bool = left_hand.get_has_tracking_data() or right_hand.get_has_tracking_data()
+	ui.set_on_screen_controls_visibility(hand_tracking_active)

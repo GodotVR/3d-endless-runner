@@ -108,4 +108,7 @@ quality/filters/msaa=1
 openxr/enabled=true
 openxr/reference_space=2
 openxr/foveation_level=3
+openxr/extensions/hand_tracking=true
+openxr/extensions/hand_interaction_profile=true
 shaders/enabled=true
+openxr/extensions/meta/hand_tracking_mesh=true

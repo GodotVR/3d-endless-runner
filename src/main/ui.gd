@@ -1,13 +1,13 @@
 extends Control
 
 @onready var hud: Control = $HUD
+@onready var on_screen_controls: Control = %OnScreenControls
 @onready var screen_container: SGUIScreenContainer = %ScreenContainer
 @onready var coin_label: Label = %CoinLabel
 @onready var main_menu: Control = %MainMenu
 @onready var credits: Control = %Credits
 @onready var settings_button: Button = %SettingsButton
 @onready var quit_button: Button = %QuitButton
-
 
 signal play_pressed()
 signal quit_pressed()
@@ -34,6 +34,10 @@ func _input(p_event: InputEvent) -> void:
 
 func set_hud_visibility(p_visible: bool) -> void:
 	hud.visible = p_visible
+
+
+func set_on_screen_controls_visibility(p_visible: bool) -> void:
+	on_screen_controls.visible = p_visible
 
 
 func show_menu(p_menu_name: String) -> void:
@@ -109,3 +113,33 @@ func _on_retry_button_pressed() -> void:
 func _on_xr_mode_field_item_selected(p_index: int) -> void:
 	xr_mode_changed.emit(p_index)
 
+
+func _send_action(p_action: StringName, p_pressed: bool) -> void:
+	var action_event = InputEventAction.new()
+	action_event.action = p_action
+	action_event.pressed = p_pressed
+	Input.parse_input_event(action_event)
+
+
+func _on_left_button_button_down() -> void:
+	_send_action("move_left", true)
+
+
+func _on_left_button_button_up() -> void:
+	_send_action("move_left", false)
+
+
+func _on_right_button_button_down() -> void:
+	_send_action("move_right", true)
+
+
+func _on_right_button_button_up() -> void:
+	_send_action("move_right", false)
+
+
+func _on_jump_button_button_down() -> void:
+	_send_action("jump", true)
+
+
+func _on_jump_button_button_up() -> void:
+	_send_action("jump", false)

@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://df502krdp6gav" path="res://addons/spatialize/input/controller_input.tscn" id="3_mbvhy"]
 [ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="4_kx56g"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="4_q8ysa"]
+[ext_resource type="Material" uid="uid://j5u0ym0rk04f" path="res://src/main/xr_hand_tracking_material.tres" id="5_kx56g"]
 [ext_resource type="PackedScene" uid="uid://801oo4p7devm" path="res://addons/spatialize/cube_depth.tscn" id="7_q8ysa"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kx56g"]
@@ -29,7 +30,7 @@ transparency = 1
 cull_mode = 2
 albedo_color = Color(1, 1, 1, 0)
 
-[sub_resource type="BoxMesh" id="BoxMesh_q8ysa"]
+[sub_resource type="BoxMesh" id="BoxMesh_kx56g"]
 resource_local_to_scene = true
 size = Vector3(1.5, 1, 2.68663)
 
@@ -68,6 +69,54 @@ show_laser = 2
 laser_length = 1
 show_target = true
 
+[node name="LeftHand" type="XRController3D" parent="XROrigin3D" unique_id=753931806]
+unique_name_in_owner = true
+tracker = &"/user/hand_tracker/left"
+show_when_tracked = true
+
+[node name="OpenXRFbHandTrackingMesh" type="OpenXRFbHandTrackingMesh" parent="XROrigin3D/LeftHand" unique_id=1996094711]
+material = ExtResource("5_kx56g")
+
+[node name="XRHandModifier3D" type="XRHandModifier3D" parent="XROrigin3D/LeftHand/OpenXRFbHandTrackingMesh" unique_id=607192361]
+
+[node name="RightHand" type="XRController3D" parent="XROrigin3D" unique_id=479653824]
+unique_name_in_owner = true
+tracker = &"/user/hand_tracker/right"
+show_when_tracked = true
+
+[node name="OpenXRFbHandTrackingMesh" type="OpenXRFbHandTrackingMesh" parent="XROrigin3D/RightHand" unique_id=675702430]
+hand = 1
+material = ExtResource("5_kx56g")
+bones/0/name = "RightPalm"
+bones/1/name = "RightHand"
+bones/2/name = "RightThumbMetacarpal"
+bones/3/name = "RightThumbProximal"
+bones/4/name = "RightThumbDistal"
+bones/5/name = "RightThumbTip"
+bones/6/name = "RightIndexMetacarpal"
+bones/7/name = "RightIndexProximal"
+bones/8/name = "RightIndexIntermediate"
+bones/9/name = "RightIndexDistal"
+bones/10/name = "RightIndexTip"
+bones/11/name = "RightMiddleMetacarpal"
+bones/12/name = "RightMiddleProximal"
+bones/13/name = "RightMiddleIntermediate"
+bones/14/name = "RightMiddleDistal"
+bones/15/name = "RightMiddleTip"
+bones/16/name = "RightRingMetacarpal"
+bones/17/name = "RightRingProximal"
+bones/18/name = "RightRingIntermediate"
+bones/19/name = "RightRingDistal"
+bones/20/name = "RightRingTip"
+bones/21/name = "RightLittleMetacarpal"
+bones/22/name = "RightLittleProximal"
+bones/23/name = "RightLittleIntermediate"
+bones/24/name = "RightLittleDistal"
+bones/25/name = "RightLittleTip"
+
+[node name="XRHandModifier3D" type="XRHandModifier3D" parent="XROrigin3D/RightHand/OpenXRFbHandTrackingMesh" unique_id=2104257333]
+hand_tracker = &"/user/hand_tracker/right"
+
 [node name="Viewport2Din3D" parent="XROrigin3D" unique_id=458023143 instance=ExtResource("4_q8ysa")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6147649, -2.6866283)
@@ -93,7 +142,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_mbvhy")
 [node name="CubeDepth" parent="." unique_id=1421330224 instance=ExtResource("7_q8ysa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.53195, -1.34231)
 visible = false
-mesh = SubResource("BoxMesh_q8ysa")
+mesh = SubResource("BoxMesh_kx56g")
 
 [node name="GameParent" type="Node3D" parent="." unique_id=1062574795]
 
@@ -112,3 +161,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
 
 [node name="VolumeGameMarker" type="Marker3D" parent="." unique_id=55051624]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0176864, 0)
+
+[connection signal="tracking_changed" from="XROrigin3D/LeftHand" to="." method="_on_hand_tracking_changed"]
+[connection signal="tracking_changed" from="XROrigin3D/RightHand" to="." method="_on_hand_tracking_changed"]

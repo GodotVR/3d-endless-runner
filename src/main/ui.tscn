@@ -3,6 +3,9 @@
 [ext_resource type="Theme" uid="uid://dlowacntnn51c" path="res://src/main/theme.tres" id="1_88570"]
 [ext_resource type="Script" uid="uid://bi7vqvb8o17bw" path="res://src/main/ui.gd" id="1_hcoyx"]
 [ext_resource type="Script" uid="uid://depspj0qam4gi" path="res://addons/sgui/controls/screen_container.gd" id="2_lxr3f"]
+[ext_resource type="Texture2D" uid="uid://bah1cuumaunti" path="res://assets/on_screen_controls/left.svg" id="3_nrj14"]
+[ext_resource type="Texture2D" uid="uid://chbsbkcnp0mqj" path="res://assets/on_screen_controls/jump.svg" id="4_ofnx1"]
+[ext_resource type="Texture2D" uid="uid://cjj2fg6gsybyh" path="res://assets/on_screen_controls/right.svg" id="5_g1ach"]
 
 [node name="UI" type="Control" unique_id=1978803305]
 process_mode = 3
@@ -47,6 +50,36 @@ offset_right = -30.0
 offset_bottom = 8.0
 grow_horizontal = 0
 text = "Pause"
+
+[node name="OnScreenControls" type="HBoxContainer" parent="HUD" unique_id=1490948574]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -139.0
+offset_top = -65.0
+offset_right = 139.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 10
+
+[node name="LeftButton" type="Button" parent="HUD/OnScreenControls" unique_id=1655026307]
+layout_mode = 2
+icon = ExtResource("3_nrj14")
+
+[node name="JumpButton" type="Button" parent="HUD/OnScreenControls" unique_id=878979446]
+layout_mode = 2
+icon = ExtResource("4_ofnx1")
+
+[node name="RightButton" type="Button" parent="HUD/OnScreenControls" unique_id=1759644904]
+layout_mode = 2
+text = "
+"
+icon = ExtResource("5_g1ach")
 
 [node name="ScreenContainer" type="Container" parent="." unique_id=1384761099]
 unique_name_in_owner = true
@@ -246,6 +279,12 @@ layout_mode = 2
 text = "Quit to Main Menu"
 
 [connection signal="pressed" from="HUD/PauseButton" to="." method="_on_pause_button_pressed"]
+[connection signal="button_down" from="HUD/OnScreenControls/LeftButton" to="." method="_on_left_button_button_down"]
+[connection signal="button_up" from="HUD/OnScreenControls/LeftButton" to="." method="_on_left_button_button_up"]
+[connection signal="button_down" from="HUD/OnScreenControls/JumpButton" to="." method="_on_jump_button_button_down"]
+[connection signal="button_up" from="HUD/OnScreenControls/JumpButton" to="." method="_on_jump_button_button_up"]
+[connection signal="button_down" from="HUD/OnScreenControls/RightButton" to="." method="_on_right_button_button_down"]
+[connection signal="button_up" from="HUD/OnScreenControls/RightButton" to="." method="_on_right_button_button_up"]
 [connection signal="pressed" from="ScreenContainer/MainMenu/MarginContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="ScreenContainer/MainMenu/MarginContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="ScreenContainer/MainMenu/MarginContainer/VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
