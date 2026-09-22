@@ -92,3 +92,7 @@ func set_xr_mode(p_index: int) -> void:
 func _on_hand_tracking_changed(_tracking: bool) -> void:
 	var hand_tracking_active: bool = left_hand.get_has_tracking_data() or right_hand.get_has_tracking_data()
 	ui.set_on_screen_controls_visibility(hand_tracking_active)
+
+
+func _on_start_xr_xr_ended() -> void:
+	_on_ui_pause_pressed()
