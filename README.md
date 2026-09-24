@@ -5,6 +5,12 @@ A simple 3-lane endless runner demo, which has been ported to XR using the
 
 See [the full tutorial](TUTORIAL.md) describing how this was done.
 
+**Video of the demo in action:**
+
+<a href="https://www.youtube.com/watch?v=AWbsfYF4rYU">
+  <img src="https://img.youtube.com/vi/AWbsfYF4rYU/maxresdefault.jpg" alt="Watch the video" width="640">
+</a>
+
 ## History
 
 - [Godot-Runner-Game](https://github.com/hman278/Godot-Runner-Game) originally by hman278 for Godot 3
